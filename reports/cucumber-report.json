@@ -1,0 +1,313 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "account-page-login;login-with-correct-email",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Login with correct email",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "I am on the account login page",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1935294800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 5,
+            "name": "I login with correct email credentials",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1434071899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 6,
+            "name": "I should see the dashboard welcome message",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 226681200
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "account-page-login;login-with-wrong-email",
+        "keyword": "Scenario",
+        "line": 8,
+        "name": "Login with wrong email",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "I am on the account login page",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1485531699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 10,
+            "name": "I login with incorrect email credentials",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 723883300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 11,
+            "name": "I should see an error message for incorrect email login",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:47"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 472893700
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "account-page-login;login-with-not-registered-email",
+        "keyword": "Scenario",
+        "line": 13,
+        "name": "Login with not registered email",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "I am on the account login page",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1599428800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I try to login with a non-registered email",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 716352100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "I should see an error message for non-registered email",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:53"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 280567900
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "account-page-login;login-with-correct-username",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "Login with correct username",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 19,
+            "name": "I am on the account login page",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1300127000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 20,
+            "name": "I login with correct username credentials",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:30"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1170912099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 21,
+            "name": "I should see the dashboard welcome message",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 254284900
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "account-page-login;login-with-wrong-username",
+        "keyword": "Scenario",
+        "line": 23,
+        "name": "Login with wrong username",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 24,
+            "name": "I am on the account login page",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1281638600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 25,
+            "name": "I login with incorrect username credentials",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 838471699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 26,
+            "name": "I should see an error message for incorrect username login",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:59"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 277550400
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "account-page-login;login-with-not-registered-username",
+        "keyword": "Scenario",
+        "line": 28,
+        "name": "Login with not registered username",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 29,
+            "name": "I am on the account login page",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1343576300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 30,
+            "name": "I try to login with a non-registered username",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:38"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 754113099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 31,
+            "name": "I should see an error message for non-registered username",
+            "match": {
+              "location": "tests\\steps\\loginSteps.ts:65"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 272878600
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "account-page-login",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Account Page Login",
+    "tags": [],
+    "uri": "tests\\features\\login.feature"
+  }
+]
