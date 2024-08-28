@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { AccountPage } from '../pages/AccountPage';
-import { AccountData } from '../models/AccountData';
-import { AccountTestData } from '../testData/AccountTestData';
+import { AccountPage } from './pages/AccountPage';
+import { AccountData } from './models/AccountData';
+import { AccountTestData } from './testData/AccountTestData';
 
 test.describe('Account Page Tests', () => {
     let accountPage: AccountPage;

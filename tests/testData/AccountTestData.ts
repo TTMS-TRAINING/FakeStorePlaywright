@@ -7,6 +7,4 @@ export class AccountTestData {
     public static CorrectLogin: AccountData = new AccountData('kamila.socha','Test123456!@#','', '', false);
     public static WrongLogin: AccountData = new AccountData('kamila.socha', 'Test1234!@#', '', '', false);
     public static NotRegistered: AccountData = new AccountData('kamila.testowa123', 'Test1234', '', '', false);
-    
-    //TODO registration data
 }
