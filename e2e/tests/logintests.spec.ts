@@ -10,12 +10,11 @@ test.describe('Account Page Tests', () => {
         accountPage = new AccountPage(page);
         await accountPage.navigateTo('https://fakestore.testelka.pl/moje-konto/');
     });
-
+    
     test('correct email login', async ({ page }) => {
         await accountPage.login(AccountTestData.CorrectEmailLogin);
         await expect(page.getByText('Witaj')).toBeVisible();
     });
-
     test('wrong email login', async ({ page }) => {
         await accountPage.login(AccountTestData.WrongEmailLogin);
         await expect(page.getByText('Błąd: dla adresu e-mail '+AccountTestData.WrongEmailLogin.username+' podano nieprawidłowe hasło. Nie pamiętasz hasła?')).toBeVisible();
