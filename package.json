@@ -3,12 +3,22 @@
   "version": "1.0.0",
   "description": "Test automation practise:",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx @cucumber/cucumber"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@cucumber/cucumber": "^10.9.0",
     "@playwright/test": "^1.46.1",
-    "@types/node": "^22.5.0"
+    "@types/node": "^22.5.1",
+    "playwright": "^1.46.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "cucumber": "^6.0.7",
+    "dotenv": "^16.4.5"
   }
 }
