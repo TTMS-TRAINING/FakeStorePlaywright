@@ -1,9 +1,9 @@
 export class AccountData {
-    username: string;
-    password: string;
-    email: string;
-    registerPassword: string;
-    rememberMe: boolean;
+    username!: string;
+    password!: string;
+    email!: string;
+    registerPassword!: string;
+    rememberMe!: boolean;
 
     constructor (username: string,
         password: string,
