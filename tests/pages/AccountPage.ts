@@ -3,14 +3,14 @@ import { BasePage } from './BasePage';
 import { AccountData } from '../models/AccountData';
 
 export class AccountPage extends BasePage {
-    private username: Locator;
-    private password: Locator;
-    private email: Locator;
-    private registerPassword: Locator;
-    private loginButton: Locator;
-    private registerButton: Locator;
-    private rememberMe: Locator;
-    private lostPassword: Locator;
+    private username!: Locator;
+    private password!: Locator;
+    private email!: Locator;
+    private registerPassword!: Locator;
+    private loginButton!: Locator;
+    private registerButton!: Locator;
+    private rememberMe!: Locator;
+    private lostPassword!: Locator;
 
     constructor(page: Page) {
         super(page);
