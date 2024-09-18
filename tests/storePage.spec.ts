@@ -9,6 +9,8 @@ test.describe("Store Page Tests", () => {
       expect(page).toHaveURL('https://fakestore.testelka.pl/shop/');
     });
 
+    const basketURL = 'https://fakestore.testelka.pl/koszyk/';
+
     test('Windsurfing category add greece', async ({page})=> {
         const storePage = new StorePage(page);
 
@@ -16,7 +18,7 @@ test.describe("Store Page Tests", () => {
         await storePage.greeceAdd();
         await storePage.greeceBasket();
         await storePage.seeInsideBasket();
-        await expect(page).toHaveURL('https://fakestore.testelka.pl/koszyk/');
+        await expect(page).toHaveURL(basketURL);
         
 
     });
@@ -28,7 +30,7 @@ test.describe("Store Page Tests", () => {
         await storePage.islandPeekAdd();
         await storePage.islandPeekBasket();
         await storePage.seeInsideBasket();
-        await expect(page).toHaveURL('https://fakestore.testelka.pl/koszyk/');
+        await expect(page).toHaveURL(basketURL);
     });
 
     test('Yoga & pilates category tests', async({page}) =>{
@@ -38,7 +40,7 @@ test.describe("Store Page Tests", () => {
         await storePage.toskaniiAdd();
         await storePage.toskaniiBasket();
         await storePage.seeInsideBasket();
-        await expect(page).toHaveURL('https://fakestore.testelka.pl/koszyk/')
+        await expect(page).toHaveURL(basketURL)
     });
 
     test('Sailing category tests', async({page}) =>{
@@ -48,7 +50,7 @@ test.describe("Store Page Tests", () => {
         await storePage.sailingCourseAdd();
         await storePage.sailingCourseBasket();
         await storePage.seeInsideBasket();
-        await expect(page).toHaveURL('https://fakestore.testelka.pl/koszyk/');
+        await expect(page).toHaveURL(basketURL);
     });
 
     
