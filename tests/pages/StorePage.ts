@@ -22,10 +22,16 @@ export class StorePage extends BasePage {
     private sailingCategory: Locator;
     private sailingCourse: Locator;
     private basketSailingCourse: Locator;
+
+    //Basket
+    private greeceAmount: Locator;
+    private islandPeekAmout: Locator;
+    private sailingCourseAmount: Locator;
     
     
     private mainPage: Locator;
     private insideBasket: Locator;
+
 
     constructor(page: Page){
     super(page);
@@ -50,10 +56,16 @@ export class StorePage extends BasePage {
     this.sailingCategory = page.getByLabel('Przejdź do kategorii produktu Żeglarstwo');
     this.sailingCourse = page.getByLabel('Dodaj do koszyka: „Kurs ż');
     this.basketSailingCourse = page.getByRole('link', { name: 'zł 1 Produkt ' });
+
+    //Basket Locators
+    //this.greeceAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input');
+    //this.islandPeekAmout = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[2]/td[5]/div/input');
+    //this.sailingCourseAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[3]/td[5]/div/input');
     
     this.mainPage = page.getByRole('link', { name: 'FakeStore' });
-
-    this.insideBasket = page.locator('#site-header-cart').getByRole('link', { name: 'Zobacz koszyk ' });
+    this.insideBasket = page.getByTitle('Zobacz koszyk', {exact: true})
+   
+    //*[@id="quantity_66f1775b39f35"]
 
 }
 
@@ -65,8 +77,11 @@ async greeceAdd(){
     await this.greeceLimnos.click();
 }
 async greeceBasket(){
-    await this.basketGreece.hover();
+    //await this.basketGreece.hover();
+    await this.insideBasket.click();
 }
+
+
 
 
 
@@ -79,7 +94,8 @@ async islandPeekAdd(){
     await this.islandPeek.click();
 }
 async islandPeekBasket(){
-    await this.basketIslandPeek.hover();
+    //await this.basketIslandPeek.hover();
+    await this.insideBasket.click();
 }
 
 // Yoga
@@ -91,7 +107,8 @@ async toskaniiAdd(){
     await this.toskanii.click();
 }
 async toskaniiBasket(){
-    await this.basketToskanii.hover();
+    //await this.basketToskanii.hover();
+    await this.insideBasket.click();
 }
 
 
@@ -107,10 +124,24 @@ async sailingCourseAdd(){
     await this.sailingCourse.click();
 }
 async sailingCourseBasket(){
-    await this.basketSailingCourse.hover();
+    //await this.basketSailingCourse.hover();
+    await this.insideBasket.click();
+    
 }
 
+// Basket
 
+async veryfingGrecceAmount(){
+    return this.greeceAmount;
+}
+
+async veryfingIslandPeekAmount(){
+    await this.islandPeekAmout.click();
+}
+
+async veryfingSailingCourseAmount(){
+    await this.sailingCourseAmount.click();
+}
 async backToMainPage(){
     await this.mainPage.click();
   }
@@ -118,6 +149,7 @@ async backToMainPage(){
   async seeInsideBasket(){
     await this.insideBasket.click();
 }
+
 
 }
 

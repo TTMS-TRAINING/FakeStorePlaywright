@@ -10,6 +10,7 @@ test.describe("Store Page Tests", () => {
     });
 
     const basketURL = 'https://fakestore.testelka.pl/koszyk/';
+    const shopURL = 'https://fakestore.testelka.pl/shop/'
 
     test('Windsurfing category add greece', async ({page})=> {
         const storePage = new StorePage(page);
@@ -53,5 +54,29 @@ test.describe("Store Page Tests", () => {
         await expect(page).toHaveURL(basketURL);
     });
 
+    test('Adding various items to basket', async({page}) =>{
+        const storePage = new StorePage(page);
+
+        const veryfingGrecceAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input');
+        const veryfingislandPeekAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[2]/td[5]/div/input');
+        const veryfingSailingCourseAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[3]/td[5]/div/input');
+
+        await storePage.windsurfingClick();
+        await storePage.greeceAdd();
+        await storePage.navigateTo(shopURL);
+        await storePage.climbingClick();
+        await storePage.islandPeekAdd();
+        await storePage.navigateTo(shopURL);
+        await storePage.sailingClick();
+        await storePage.sailingCourseAdd();
+        await test.setTimeout(70000)
+        await storePage.seeInsideBasket();
+        await expect(veryfingGrecceAmount).toHaveValue('1');
+        await expect(veryfingislandPeekAmount).toHaveValue('1');
+        await expect(veryfingSailingCourseAmount).toHaveValue('1');
     
+        
     });
+
+    
+    })
