@@ -103,14 +103,28 @@ export class WishlistPage extends MainPage {
 
     //metoda wypełniania Whislist
     async fillWishlist() {
-        await this.page.goto('https://fakestore.testelka.pl/product/wspinaczka-island-peak/?add_to_wishlist=42&_wpnonce=109492b68d');
-        await this.page.goto('https://fakestore.testelka.pl/product/fuerteventura-sotavento/?add_to_wishlist=393&_wpnonce=109492b68d');
-        await this.page.goto('https://fakestore.testelka.pl/product/grecja-limnos/?add_to_wishlist=391&_wpnonce=109492b68d');
+        const productUrls = [
+            'https://fakestore.testelka.pl/product/wspinaczka-island-peak/?add_to_wishlist=42&_wpnonce=0bd29d9ee6',
+            'https://fakestore.testelka.pl/product/fuerteventura-sotavento/?add_to_wishlist=393&_wpnonce=109492b68d',
+            'https://fakestore.testelka.pl/product/grecja-limnos/?add_to_wishlist=391&_wpnonce=109492b68d',
+        ];
 
+        for (const url of productUrls) {
+            await this.page.goto(url); // Przechodzimy do URL
 
+            const addToWishlistLink = this.page.getByRole('link', { name: 'Dodaj do listy życzeń' });
 
+            // Sprawdzamy, czy przycisk jest widoczny
+            if (await addToWishlistLink.isVisible()) {
+                await addToWishlistLink.click(); // Klikamy, jeśli widoczny
+                console.log(`Dodano produkt z URL: ${url}`);
+            } else {
+                console.warn(`Przycisk 'Dodaj do listy życzeń' nie jest widoczny dla URL: ${url}`);
+            }
+        }
     }
     async clearWishlist() {
+        await this.page.goto('https://fakestore.testelka.pl/wishlist/');
         const productCount = await this.getProductCount(); // Sprawdzenie liczby produktów
 
         for (let i = 0; i < productCount; i++) {

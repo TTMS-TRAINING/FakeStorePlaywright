@@ -100,8 +100,9 @@ test.describe('Testy strony wishlist z nową kartą', () => {
         await wishlistPage.clearWishlist();
 
         // Sprawdzenie, czy lista życzeń jest pusta
-        const productCount = await wishlistPage.getProductCount();
-        expect(productCount).toBe(0); // Oczekujemy, że lista życzeń jest pusta
+        // const productCount = await wishlistPage.getProductCount();
+        // expect(productCount).toBe(0); // Oczekujemy, że lista życzeń jest pusta
+        await expect(page.locator('td')).toContainText('No products added to the wishlist');
     });
 
 
