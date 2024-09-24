@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { StorePage } from './pages/StorePage';
+import { TIMEOUT } from 'dns';
 
 test.describe("Store Page Tests", () => {
 
@@ -10,7 +11,7 @@ test.describe("Store Page Tests", () => {
     });
 
     const basketURL = 'https://fakestore.testelka.pl/koszyk/';
-    const shopURL = 'https://fakestore.testelka.pl/shop/'
+    const shopURL = 'https://fakestore.testelka.pl/shop/';
 
     test('Windsurfing category add greece', async ({page})=> {
         const storePage = new StorePage(page);
@@ -18,7 +19,6 @@ test.describe("Store Page Tests", () => {
         await storePage.windsurfingClick();
         await storePage.greeceAdd();
         await storePage.greeceBasket();
-        await storePage.seeInsideBasket();
         await expect(page).toHaveURL(basketURL);
         
 
@@ -30,7 +30,6 @@ test.describe("Store Page Tests", () => {
         await storePage.climbingClick();
         await storePage.islandPeekAdd();
         await storePage.islandPeekBasket();
-        await storePage.seeInsideBasket();
         await expect(page).toHaveURL(basketURL);
     });
 
@@ -40,7 +39,6 @@ test.describe("Store Page Tests", () => {
         await storePage.yogaClick();
         await storePage.toskaniiAdd();
         await storePage.toskaniiBasket();
-        await storePage.seeInsideBasket();
         await expect(page).toHaveURL(basketURL)
     });
 
@@ -50,7 +48,6 @@ test.describe("Store Page Tests", () => {
         await storePage.sailingClick();
         await storePage.sailingCourseAdd();
         await storePage.sailingCourseBasket();
-        await storePage.seeInsideBasket();
         await expect(page).toHaveURL(basketURL);
     });
 
@@ -69,11 +66,11 @@ test.describe("Store Page Tests", () => {
         await storePage.navigateTo(shopURL);
         await storePage.sailingClick();
         await storePage.sailingCourseAdd();
-        await test.setTimeout(70000)
-        await storePage.seeInsideBasket();
+        await storePage.navigateTo(shopURL);
+        await storePage.navigateTo(basketURL);
         await expect(veryfingGrecceAmount).toHaveValue('1');
         await expect(veryfingislandPeekAmount).toHaveValue('1');
-        await expect(veryfingSailingCourseAmount).toHaveValue('1');
+        await expect(veryfingSailingCourseAmount).toHaveValue('1')
     
         
     });

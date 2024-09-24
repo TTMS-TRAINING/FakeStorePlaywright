@@ -63,9 +63,9 @@ export class StorePage extends BasePage {
     //this.sailingCourseAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[3]/td[5]/div/input');
     
     this.mainPage = page.getByRole('link', { name: 'FakeStore' });
-    this.insideBasket = page.getByTitle('Zobacz koszyk', {exact: true})
+    this.insideBasket = page.locator('#menu-item-200').getByRole('link', { name: 'Koszyk' })
    
-    //*[@id="quantity_66f1775b39f35"]
+    
 
 }
 
