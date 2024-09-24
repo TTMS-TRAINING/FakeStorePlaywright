@@ -10,4 +10,7 @@ export class BasePage {
   async navigateTo(url: string) {
     await this.page.goto(url);
   }
+
+
+
 }
