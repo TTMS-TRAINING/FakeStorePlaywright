@@ -13,7 +13,7 @@ export class WishlistPage extends MainPage {
 
     // Przechowuj oryginalną nazwę i nową nazwę jako stałe
     private originalName = 'Oryginalna Nazwa'; // Ustal oryginalną nazwę
-    private newName = 'Nowa Nazwa'; // Ustal nową nazwę
+
 
     constructor(page: Page) {
         super(page);
@@ -32,22 +32,26 @@ export class WishlistPage extends MainPage {
         await this.wishlistNameEditButton.click();
     }
 
-    async changeWishlistName() {
+    async changeWishlistName(newName: string) {
+        console.log('Kliknięcie na element wishlistName');
         await this.wishlistName.click();
+        console.log('Pole tekstowe powinno być widoczne');
         await this.wishlistNameInput.waitFor({ state: 'visible' });
 
-        // Wypełnij nowe imię
-        await this.wishlistNameInput.fill(this.newName);
+        // Wypełnij nową nazwę podaną jako parametr
+        console.log(`Zmiana nazwy listy życzeń na: ${newName}`);
+        await this.wishlistNameInput.fill(newName);
         await this.wishlistNameInputAcceptButton.waitFor({ state: 'visible' });
         await this.wishlistNameInputAcceptButton.click();
 
         // Czekaj na aktualizację i sprawdź nową nazwę
         await this.wishlistName.waitFor({ state: 'visible' });
         const updatedName = await this.wishlistName.innerText();
-        return updatedName.trim() === this.newName; // Zwraca true, jeśli nazwa została zmieniona
+        return updatedName.trim() === newName; // Zwraca true, jeśli nazwa została zmieniona
     }
 
     async cancelWishlistNameChange() {
+        this.originalName = await this.wishlistName.innerText();
         await this.wishlistName.click();
         await this.wishlistNameInput.waitFor({ state: 'visible' });
 
@@ -97,8 +101,10 @@ export class WishlistPage extends MainPage {
 
     // Metoda do sprawdzania liczby produktów
     async getProductCount() {
-        return await this.productRows.count();
-
+        // Czekaj, aż elementy w tabeli będą widoczne
+        await this.productRows.first().waitFor({ state: 'visible' });
+        const count = await this.productRows.count();
+        return count;
     }
 
     //metoda wypełniania Whislist
@@ -122,6 +128,7 @@ export class WishlistPage extends MainPage {
                 console.warn(`Przycisk 'Dodaj do listy życzeń' nie jest widoczny dla URL: ${url}`);
             }
         }
+        await this.page.goto('https://fakestore.testelka.pl/wishlist/');
     }
     async clearWishlist() {
         await this.page.goto('https://fakestore.testelka.pl/wishlist/');
