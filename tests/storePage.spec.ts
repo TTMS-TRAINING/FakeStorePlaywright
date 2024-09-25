@@ -75,5 +75,21 @@ test.describe("Store Page Tests", () => {
         
     });
 
+    test('Manually inserting number of items', async ({page}) =>{
+        const storePage = new StorePage(page);
+
+        const veryfingGrecceAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input');
+
+        await storePage.windsurfingClick();
+        await storePage.greeceAdd();
+        await storePage.navigateTo(shopURL);
+        await storePage.navigateTo(basketURL);
+        await storePage.productAmountClick();
+        await storePage.productAmountFill('15');
+        await storePage.actualizeBasket();
+        await expect(veryfingGrecceAmount).toHaveValue('15');
+    
+    })
+
     
     })

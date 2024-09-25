@@ -27,6 +27,8 @@ export class StorePage extends BasePage {
     private greeceAmount: Locator;
     private islandPeekAmout: Locator;
     private sailingCourseAmount: Locator;
+    private productAmount: Locator;
+    private basketActualization: Locator;
     
     
     private mainPage: Locator;
@@ -58,6 +60,11 @@ export class StorePage extends BasePage {
     this.basketSailingCourse = page.getByRole('link', { name: 'zł 1 Produkt ' });
 
     //Basket Locators
+
+    this.productAmount = page.getByLabel('Ilość produktu');
+    this.basketActualization = page.getByRole('button', { name: 'Zaktualizuj koszyk' });
+    
+
     //this.greeceAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input');
     //this.islandPeekAmout = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[2]/td[5]/div/input');
     //this.sailingCourseAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[3]/td[5]/div/input');
@@ -130,6 +137,18 @@ async sailingCourseBasket(){
 }
 
 // Basket
+
+async productAmountClick(){
+    await this.productAmount.click();
+}
+
+async productAmountFill(value: string){
+    await this.productAmount.fill(value);
+}
+
+async actualizeBasket(){
+    await this.basketActualization.click();
+}
 
 async veryfingGrecceAmount(){
     return this.greeceAmount;
