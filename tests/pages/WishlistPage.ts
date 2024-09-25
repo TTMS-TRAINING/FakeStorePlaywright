@@ -1,4 +1,3 @@
-// WishlistPage.ts
 import { MainPage } from './MainPage';
 import { Locator, Page } from '@playwright/test';
 
@@ -8,30 +7,30 @@ export class WishlistPage extends MainPage {
     private wishlistNameInput: Locator;
     private wishlistNameInputAcceptButton: Locator;
     private wishlistNameInputCancelButton: Locator;
-
     private productRows: Locator;
 
     // Przechowuj oryginalną nazwę i nową nazwę jako stałe
     private originalName = 'Oryginalna Nazwa'; // Ustal oryginalną nazwę
 
-
     constructor(page: Page) {
         super(page);
 
+        // Definiowanie lokatorów elementów strony
         this.wishlistNameEditButton = this.page.locator('#yith-wcwl-form > div.wishlist-title-container > div.wishlist-title.wishlist-title-with-form > a');
         this.wishlistName = this.page.locator('#yith-wcwl-form > div.wishlist-title-container > div.wishlist-title.wishlist-title-with-form > h2');
         this.wishlistNameInput = this.page.getByRole('textbox');
         this.wishlistNameInputAcceptButton = this.page.locator('#yith-wcwl-form > div.wishlist-title-container > div.hidden-title-form > div > a.save-title-form > i');
         this.wishlistNameInputCancelButton = this.page.locator('#yith-wcwl-form > div.wishlist-title-container > div.hidden-title-form > div > a.hide-title-form');
-
         this.productRows = this.page.locator('tbody.wishlist-items-wrapper tr'); // Lokator dla wszystkich wierszy produktów
     }
 
+    // Metoda kliknięcia przycisku edycji nazwy listy życzeń
     async clickWishlistEditButton() {
         await this.wishlistNameEditButton.waitFor({ state: 'visible' });
         await this.wishlistNameEditButton.click();
     }
 
+    // Metoda zmiany nazwy listy życzeń
     async changeWishlistName(newName: string) {
         console.log('Kliknięcie na element wishlistName');
         await this.wishlistName.click();
@@ -50,6 +49,7 @@ export class WishlistPage extends MainPage {
         return updatedName.trim() === newName; // Zwraca true, jeśli nazwa została zmieniona
     }
 
+    // Metoda anulowania zmiany nazwy listy życzeń
     async cancelWishlistNameChange() {
         this.originalName = await this.wishlistName.innerText();
         await this.wishlistName.click();
@@ -66,7 +66,7 @@ export class WishlistPage extends MainPage {
         return currentName.trim() === this.originalName; // Zwraca true, jeśli nazwa pozostała niezmieniona
     }
 
-    // Metoda do usuwania produktu z listy
+    // Metoda do usuwania produktu z listy życzeń
     async removeProduct(index: number) {
         const productRow = this.productRows.nth(index); // Wybór konkretnego wiersza na podstawie indeksu
         const removeButton = productRow.locator('.product-remove .remove');
@@ -82,7 +82,6 @@ export class WishlistPage extends MainPage {
 
         await addToCartButton.waitFor({ state: 'visible' });
         await addToCartButton.click();
-
     }
 
     // Metoda do uzyskiwania informacji o produkcie
@@ -107,7 +106,7 @@ export class WishlistPage extends MainPage {
         return count;
     }
 
-    //metoda wypełniania Whislist
+    // Metoda wypełniania listy życzeń
     async fillWishlist() {
         const productUrls = [
             'https://fakestore.testelka.pl/product/wspinaczka-island-peak/?add_to_wishlist=42&_wpnonce=0bd29d9ee6',
@@ -116,13 +115,13 @@ export class WishlistPage extends MainPage {
         ];
 
         for (const url of productUrls) {
-            await this.page.goto(url); // Przechodzimy do URL
+            await this.page.goto(url); // Przejdź do URL
 
             const addToWishlistLink = this.page.getByRole('link', { name: 'Dodaj do listy życzeń' });
 
-            // Sprawdzamy, czy przycisk jest widoczny
+            // Sprawdź, czy przycisk jest widoczny
             if (await addToWishlistLink.isVisible()) {
-                await addToWishlistLink.click(); // Klikamy, jeśli widoczny
+                await addToWishlistLink.click(); // Kliknij, jeśli widoczny
                 console.log(`Dodano produkt z URL: ${url}`);
             } else {
                 console.warn(`Przycisk 'Dodaj do listy życzeń' nie jest widoczny dla URL: ${url}`);
@@ -130,6 +129,8 @@ export class WishlistPage extends MainPage {
         }
         await this.page.goto('https://fakestore.testelka.pl/wishlist/');
     }
+
+    // Metoda usuwania wszystkich produktów z listy życzeń
     async clearWishlist() {
         await this.page.goto('https://fakestore.testelka.pl/wishlist/');
         const productCount = await this.getProductCount(); // Sprawdzenie liczby produktów
@@ -140,5 +141,4 @@ export class WishlistPage extends MainPage {
             await this.page.waitForTimeout(1000); // Opcjonalne opóźnienie, aby upewnić się, że usunięcie się zakończyło
         }
     }
-
 }

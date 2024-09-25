@@ -6,7 +6,7 @@ import { AccountTestData } from './testData/AccountTestData';
 test.describe('Testy strony wishlist z nową kartą', () => {
 
     test.beforeEach(async ({ page }) => {
-        // Directly navigate to the login page, since this is necessary for both tests
+        // Przejdź bezpośrednio na stronę logowania, ponieważ jest to wymagane w obu testach
         await page.goto('https://fakestore.testelka.pl/moje-konto/');
         const accountPage = new AccountPage(page);
         await accountPage.login(AccountTestData.TestUserWishlist);
@@ -26,6 +26,7 @@ test.describe('Testy strony wishlist z nową kartą', () => {
         expect(productCount).toBeGreaterThan(0); // Oczekujemy, że lista nie jest pusta
         console.log(`Liczba produktów dodanych do listy życzeń: ${productCount}`);
     });
+
     test('Uzyskiwanie informacji o produkcie na liście życzeń', async ({ page }) => {
         // Utwórz instancję WishlistPage
         const wishlistPage = new WishlistPage(page);
@@ -55,17 +56,11 @@ test.describe('Testy strony wishlist z nową kartą', () => {
         await wishlistPage.addProductToCart(0);
 
         // Sprawdź, czy produkt został dodany do koszyka (weryfikacja wymaga znajomości strony, np. poprzez sprawdzenie liczby produktów w koszyku)
-        // poprawne sprawdzenie będzie dodane po zaimplementowaniu metod koszyka
+        // Poprawne sprawdzenie będzie dodane po zaimplementowaniu metod koszyka
         await expect(page).toHaveURL('https://fakestore.testelka.pl/koszyk/');
-
-
     });
 
-
-
     test('Usuwanie wszystkich produktów z listy życzeń', async ({ page }) => {
-
-
         const wishlistPage = new WishlistPage(page);
 
         // Wypełnij listę życzeń (dodaj produkty)
@@ -82,11 +77,14 @@ test.describe('Testy strony wishlist z nową kartą', () => {
 
     test('Zmiana nazwy listy życzeń', async ({ page }) => {
         const wishlistPage = new WishlistPage(page);
-        await wishlistPage.changeWishlistName('Moja Nowa Lista'); // Zmień nazwę listy życzeń na 'Moja Nowa Lista'
+
+        // Zmień nazwę listy życzeń na 'Moja Nowa Lista'
+        await wishlistPage.changeWishlistName('Moja Nowa Lista');
 
         const isNameChanged = await wishlistPage.changeWishlistName('Moja Nowa Lista');
         expect(isNameChanged).toBe(true); // Sprawdź, czy nazwa została zmieniona
     });
+
     test('Anulowanie zmiany nazwy listy życzeń', async ({ page }) => {
         // Utwórz instancję WishlistPage
         const wishlistPage = new WishlistPage(page);
@@ -114,16 +112,11 @@ test.describe('Testy strony wishlist z nową kartą', () => {
         // Usuń pierwszy produkt
         await wishlistPage.removeProduct(0);
         await page.waitForTimeout(1000); // Czekaj przez 1000 ms (1 sekunda)
+
         // Pobierz liczbę produktów po usunięciu
         const productCountAfter = await wishlistPage.getProductCount();
         console.log(`Liczba produktów po usunięciu: ${productCountAfter}`);
 
         await expect(productCountAfter).toBe(productCountBefore - 1); // Oczekujemy, że lista produktów zmniejszy się o 1
     });
-
-
-
-
-
-
 });
