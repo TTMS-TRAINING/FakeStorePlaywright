@@ -1,6 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { AccountData } from '../models/AccountData';
+import { AccountTestData } from '../testData/AccountTestData';
 
 export class AccountPage extends BasePage {
     private username!: Locator;
@@ -32,4 +33,9 @@ export class AccountPage extends BasePage {
         await this.rememberMe.check();
         await this.loginButton.click();
     };
-}
+
+    async register(account: AccountData) {
+        await this.email.fill(account.email);
+        await this.registerPassword.fill(account.registerPassword);
+        await this.page.keyboard.press("Enter");
+    }};
