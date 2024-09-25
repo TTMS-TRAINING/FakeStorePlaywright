@@ -20,5 +20,8 @@
   "dependencies": {
     "cucumber": "^6.0.7",
     "dotenv": "^16.4.5"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
