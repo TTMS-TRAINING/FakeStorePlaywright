@@ -14,6 +14,7 @@ export class AccountPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
+        this.initFields();
     }
     async initFields() {
         this.username = this.page.locator('#username');
@@ -25,13 +26,10 @@ export class AccountPage extends BasePage {
         this.rememberMe = this.page.locator('#rememberme');
         this.lostPassword = this.page.getByRole('link', { name: 'Nie pamiętasz hasła?' });
     }
-
     async login(account: AccountData) {
-        this.initFields();
         await this.username.fill(account.username);
         await this.password.fill(account.password);
         await this.rememberMe.check();
         await this.loginButton.click();
     };
-
 }
