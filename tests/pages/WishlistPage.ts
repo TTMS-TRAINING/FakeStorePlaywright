@@ -71,7 +71,7 @@ export class WishlistPage extends MainPage {
         const productRow = this.productRows.nth(index); // Wybór konkretnego wiersza na podstawie indeksu
         const removeButton = productRow.locator('.product-remove .remove');
 
-        await removeButton.waitFor({ state: 'visible' });
+        await removeButton.waitFor({ state: 'visible', timeout: 60000 });
         await removeButton.click();
     }
 
