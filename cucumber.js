@@ -1,10 +1,9 @@
 module.exports = {
-    default: {
-        require: ['tests/steps/*.ts'], // Path to step definitions
-        format: ['progress', 'json:reports/cucumber-report.json'], // Output report formats
-        paths: ['tests/features/*.feature'], // Path to the feature files
-        requireModule: ['ts-node/register'], // Enable TypeScript support
-
-    },
+  default: {
+      requireModule: ['ts-node/register'], // Włącza obsługę TypeScript
+      require: ['tests/steps/**/*.ts'], // Ścieżka do plików z krokami (steps)
+      format: ['progress', 'json:reports/cucumber-report.json'], // Format wyników testów i raport w JSON
+      paths: ['tests/features/*.feature'], // Ścieżka do plików feature
+      publishQuiet: true // Wyciszenie zbędnych logów
+  }
 };
-
