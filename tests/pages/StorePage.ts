@@ -23,9 +23,6 @@ export class StorePage extends BasePage {
   private basketSailingCourse: Locator;
 
   //Basket
-  private greeceAmount: Locator;
-  private islandPeekAmout: Locator;
-  private sailingCourseAmount: Locator;
   private productAmount: Locator;
   private basketActualization: Locator;
 
@@ -152,17 +149,6 @@ export class StorePage extends BasePage {
     await this.basketActualization.click();
   }
 
-  async veryfingGrecceAmount() {
-    return this.greeceAmount;
-  }
-
-  async veryfingIslandPeekAmount() {
-    await this.islandPeekAmout.click();
-  }
-
-  async veryfingSailingCourseAmount() {
-    await this.sailingCourseAmount.click();
-  }
   async backToMainPage() {
     await this.mainPage.click();
   }
