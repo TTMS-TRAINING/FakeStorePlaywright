@@ -6,11 +6,12 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
+  timeout: 60000, // Set global timeout to 60 seconds
   reporter: 'html',
   use: {
     baseURL: 'https://fakestore.testelka.pl',
     trace: 'on-first-retry',
-    timeout: 60000,  // Zwiększamy timeout do 60 sekund
+    //timeout: 60000,  // Zwiększamy timeout do 60 sekund
   },
   projects: [
     {
