@@ -73,6 +73,7 @@ export class WishlistPage extends MainPage {
 
         await removeButton.waitFor({ state: 'visible', timeout: 60000 });
         await removeButton.click();
+        await this.page.waitForSelector('div.woocommerce-message[role="alert"]:has-text("Produkt został usunięty.")');
     }
 
     // Metoda do dodawania produktu do koszyka
@@ -137,8 +138,9 @@ export class WishlistPage extends MainPage {
 
         for (let i = 0; i < productCount; i++) {
             await this.removeProduct(0); // Usunięcie pierwszego produktu
-            // Po usunięciu produktu, liczba produktów się zmienia, więc zawsze usuwamy "0" (pierwszy)
-            await this.page.waitForTimeout(1000); // Opcjonalne opóźnienie, aby upewnić się, że usunięcie się zakończyło
+            await this.page.waitForSelector('div.woocommerce-message[role="alert"]:has-text("Produkt został usunięty.")');
+
+            //await this.page.waitForTimeout(1000); // Opcjonalne opóźnienie, aby upewnić się, że usunięcie się zakończyło
         }
     }
 }

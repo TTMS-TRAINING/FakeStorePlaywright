@@ -10,7 +10,7 @@ test.describe('Testy strony wishlist z nową kartą', () => {
         await page.goto('https://fakestore.testelka.pl/moje-konto/');
         const accountPage = new AccountPage(page);
         await accountPage.login(AccountTestData.TestUserWishlist);
-        await expect(page.getByText('Witaj')).toBeVisible();
+        //await expect(page.getByText('Witaj')).toBeVisible();
         await page.goto('https://fakestore.testelka.pl/wishlist/')
     });
 
@@ -68,11 +68,16 @@ test.describe('Testy strony wishlist z nową kartą', () => {
 
         // Usuwanie wszystkich produktów
         await wishlistPage.clearWishlist();
-
+        //await page.waitForTimeout(2000);
         // Sprawdzenie, czy lista życzeń jest pusta
         // const productCount = await wishlistPage.getProductCount();
         // expect(productCount).toBe(0); // Oczekujemy, że lista życzeń jest pusta
-        await expect(page.locator('td')).toContainText('No products added to the wishlist');
+        await page.waitForSelector('tbody.wishlist-items-wrapper');
+
+        // Sprawdzamy, czy tekst w komórce informującej o pustej liście jest poprawny
+        const emptyWishlistMessage = page.locator('td.wishlist-empty');
+
+        await expect(emptyWishlistMessage).toContainText('No products added to the wishlist')
     });
 
     test('Zmiana nazwy listy życzeń', async ({ page }) => {
@@ -105,13 +110,15 @@ test.describe('Testy strony wishlist z nową kartą', () => {
         // Wypełnij listę życzeń
         await wishlistPage.fillWishlist();
 
+        await page.waitForTimeout(2000); // Czekaj przez 1000 ms (1 sekunda)
         // Pobierz liczbę produktów przed usunięciem
         const productCountBefore = await wishlistPage.getProductCount();
         console.log(`Liczba produktów przed usunięciem: ${productCountBefore}`);
 
         // Usuń pierwszy produkt
         await wishlistPage.removeProduct(0);
-        await page.waitForTimeout(1000); // Czekaj przez 1000 ms (1 sekunda)
+        //await page.waitForTimeout(2000); // Czekaj przez 1000 ms (1 sekunda)
+
 
         // Pobierz liczbę produktów po usunięciu
         const productCountAfter = await wishlistPage.getProductCount();

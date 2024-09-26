@@ -37,8 +37,8 @@ export class ProductPage {
         await this.page.keyboard.press('Enter'); // Naciśnij Enter, aby rozpocząć wyszukiwanie
 
         // Czekaj na załadowanie wyników
-        await this.page.waitForTimeout(1000); // Możesz dostosować czas w zależności od ładowania strony
-
+        //await this.page.waitForTimeout(1000); // Możesz dostosować czas w zależności od ładowania strony
+        await this.page.waitForSelector('h1.woocommerce-products-header__title', { state: 'visible' });
         const productCount = await this.getProductCount(); // Sprawdź liczbę produktów
 
         if (productCount === 0) {

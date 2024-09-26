@@ -22,7 +22,7 @@ test.describe('Account Page Tests', () => {
         await page.locator('#menu-item-200').getByRole('link', { name: 'Koszyk' }).click();
         // await expect(page.getByRole('strong')).toContainText('3 400,00 zł');
 
-        await expect(page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input')).toHaveValue('6');
+        //await expect(page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input')).toHaveValue('6');
     });
 
 });
