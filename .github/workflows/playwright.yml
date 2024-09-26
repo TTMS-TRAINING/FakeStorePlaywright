@@ -26,11 +26,14 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Install xvfb
+        run: sudo apt-get install -y xvfb
+
       - name: Run Playwright Tests
         run: npx playwright test
 
-      - name: Run Cucumber Tests
-        run: npx cucumber-js
+      - name: Run Cucumber Tests with xvfb
+        run: xvfb-run -a npx cucumber-js
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4

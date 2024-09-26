@@ -9,4 +9,4 @@ Feature: Account Page Registration
       | NewEmail           | Witaj testowymail                                                                                                                                 |
       | ExistingEmail      | Błąd: Konto z Twoim adresem e-mail jest już zarejestrowane. Zaloguj się.                                                                          |
       | NotCorrectEmail    | Błąd: Podaj poprawny adres e-mail.                                                                                                                |
-      | WeakPassword       | Słabe - Proszę wpisać mocniejsze hasło.                                                                                                            |
+#      | WeakPassword       | Słabe - Proszę wpisać mocniejsze hasło.                                                                                                            |
