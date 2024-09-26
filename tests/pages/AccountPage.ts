@@ -12,6 +12,7 @@ export class AccountPage extends BasePage {
     private registerButton!: Locator;
     private rememberMe!: Locator;
     private lostPassword!: Locator;
+    private showPassword!: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -22,10 +23,11 @@ export class AccountPage extends BasePage {
         this.password = this.page.locator('#password');
         this.email = this.page.locator('#reg_email');
         this.registerPassword = this.page.locator('#reg_password');
-        this.loginButton = this.page.getByRole('button', { name:'Zaloguj się'});
-        this.registerButton = this.page.getByRole('button', { name:'Zarejestruj się'});
+        this.loginButton = this.page.getByRole('button', { name: 'Zaloguj się' });
+        this.registerButton = this.page.getByRole('button', { name: 'Zarejestruj się' });
         this.rememberMe = this.page.locator('#rememberme');
         this.lostPassword = this.page.getByRole('link', { name: 'Nie pamiętasz hasła?' });
+        this.showPassword = this.page.locator('.show-password-input').first();
     }
     async login(account: AccountData) {
         await this.username.fill(account.username);
@@ -34,8 +36,15 @@ export class AccountPage extends BasePage {
         await this.loginButton.click();
     };
 
+    async showUserPassword(account: AccountData) {
+        await this.username.fill(account.username);
+        await this.password.fill(account.password);
+        await this.showPassword.click();
+    };
+
     async register(account: AccountData) {
         await this.email.fill(account.email);
         await this.registerPassword.fill(account.registerPassword);
         await this.page.keyboard.press("Enter");
-    }};
+    }
+};
