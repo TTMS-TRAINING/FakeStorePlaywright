@@ -1,6 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { AccountData } from '../models/AccountData';
+import { AccountTestData } from '../testData/AccountTestData';
 
 export class AccountPage extends BasePage {
     private username!: Locator;
@@ -22,8 +23,8 @@ export class AccountPage extends BasePage {
         this.password = this.page.locator('#password');
         this.email = this.page.locator('#reg_email');
         this.registerPassword = this.page.locator('#reg_password');
-        this.loginButton = this.page.getByRole('button', { name:'Zaloguj się'});
-        this.registerButton = this.page.getByRole('button', { name:'Zarejestruj się'});
+        this.loginButton = this.page.getByRole('button', { name: 'Zaloguj się' });
+        this.registerButton = this.page.getByRole('button', { name: 'Zarejestruj się' });
         this.rememberMe = this.page.locator('#rememberme');
         this.lostPassword = this.page.getByRole('link', { name: 'Nie pamiętasz hasła?' });
         this.showPassword = this.page.locator('.show-password-input').first();
@@ -40,4 +41,10 @@ export class AccountPage extends BasePage {
         await this.password.fill(account.password);
         await this.showPassword.click();
     };
-}
+
+    async register(account: AccountData) {
+        await this.email.fill(account.email);
+        await this.registerPassword.fill(account.registerPassword);
+        await this.page.keyboard.press("Enter");
+    }
+};
