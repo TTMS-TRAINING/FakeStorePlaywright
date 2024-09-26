@@ -18,6 +18,6 @@ Feature: Account Page Login
     When Login with "<accountType>"
     Then I see password: "<passwordValue>"
     Examples:
-      | accountType        | passwordValue                                                                                                                                    |
+      | accountType        | passwordValue                                                                                                                                     |
       | CorrectEmailLogin  | AccountTest1234!@                                                                                                                                 |
       | WrongEmailLogin    | Test1234                                                                                                                                          |

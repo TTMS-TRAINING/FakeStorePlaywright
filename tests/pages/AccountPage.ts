@@ -31,7 +31,6 @@ export class AccountPage extends BasePage {
     async login(account: AccountData) {
         await this.username.fill(account.username);
         await this.password.fill(account.password);
-        await this.password.click();
         await this.rememberMe.check();
         await this.loginButton.click();
     };
