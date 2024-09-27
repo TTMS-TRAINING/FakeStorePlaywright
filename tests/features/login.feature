@@ -12,3 +12,12 @@ Feature: Account Page Login
       | CorrectLogin       | Witaj kamila.socha                                                                                                                                |
       | WrongLogin         | Błąd: wpisano niepoprawne hasło dla użytkownika kamila.socha. Nie pamiętasz hasła?                                                                |
       | NotRegistered      | Błąd: brak kamila.testowa123 wśród zarejestrowanych w witrynie użytkowników. Jeśli nie masz pewności co do nazwy użytkownika, użyj adresu e-mail. |
+
+    Scenario: Show password button
+    Given Go to login page
+    When Login with "<accountType>"
+    Then I see password: "<passwordValue>"
+    Examples:
+      | accountType        | passwordValue                                                                                                                                     |
+      | CorrectEmailLogin  | AccountTest1234!@                                                                                                                                 |
+      | WrongEmailLogin    | Test1234                                                                                                                                          |
