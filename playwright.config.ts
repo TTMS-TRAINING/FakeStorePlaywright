@@ -1,33 +1,31 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  timeout: 60000, // Set global timeout to 60 seconds
+  timeout: 30000, // Set global timeout to 6 seconds
 
-
-  reporter: 'html',
+  reporter: "html",
   use: {
-    baseURL: 'https://fakestore.testelka.pl',
-    trace: 'on-first-retry',
+    baseURL: "https://fakestore.testelka.pl",
+    trace: "on-first-retry",
     //timeout: 60000,  // Zwiększamy timeout do 60 sekund
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
     },
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
     },
   ],
 });
-
