@@ -65,7 +65,12 @@ export class WishlistPage extends MainPage {
   }
 
   async removeProduct(index: number) {
+    await this.page.waitForSelector("#yith-wcwl-form > table", {
+      state: "visible",
+      timeout: 30000,
+    });
     const productRow = this.productRows.nth(index);
+
     const removeButton = productRow.locator(".product-remove .remove");
 
     await removeButton.waitFor({ state: "visible", timeout: 60000 });
