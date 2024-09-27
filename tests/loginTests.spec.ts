@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { AccountPage } from './pages/AccountData'; 
-import { AccountData } from './models/AccountData';
+import { AccountPage } from './pages/AccountPage'; 
 import { AccountTestData } from './testData/AccountTestData'; 
 
 
