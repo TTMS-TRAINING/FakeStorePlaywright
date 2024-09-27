@@ -1,85 +1,93 @@
-import { test, expect } from '@playwright/test';
-import { StorePage } from './pages/StorePage';
-import { TIMEOUT } from 'dns';
-
+import { test, expect } from "@playwright/test";
+import { StorePage } from "./pages/StorePage";
 
 test.describe("Store Page Tests", () => {
+  test.beforeEach(async ({ page }) => {
+    const storePage = new StorePage(page);
+    await storePage.navigateTo(shopURL);
+    expect(page).toHaveURL(shopURL);
+  });
 
-    test.beforeEach(async ({ page }) => {
-        const storePage = new StorePage(page);
+  const basketURL = "https://fakestore.testelka.pl/koszyk/";
+  const shopURL = "https://fakestore.testelka.pl/shop/";
 
-        // Wyczyszczenie cookies przed każdym testem
-        await page.context().clearCookies();
+  test("Windsurfing category add greece", async ({ page }) => {
+    const storePage = new StorePage(page);
 
+    await storePage.windsurfingClick();
+    await storePage.greeceAdd();
+    await storePage.greeceBasket();
+    await expect(page).toHaveURL(basketURL);
+  });
 
-        await storePage.navigateTo('https://fakestore.testelka.pl/shop/');
-        expect(page).toHaveURL('https://fakestore.testelka.pl/shop/');
-    });
+  test("Climbing category tests", async ({ page }) => {
+    const storePage = new StorePage(page);
 
-    const basketURL = 'https://fakestore.testelka.pl/koszyk/';
-    const shopURL = 'https://fakestore.testelka.pl/shop/';
+    await storePage.climbingClick();
+    await storePage.islandPeekAdd();
+    await storePage.islandPeekBasket();
+    await expect(page).toHaveURL(basketURL);
+  });
 
-    test('Windsurfing category add greece', async ({ page }) => {
-        const storePage = new StorePage(page);
+  test("Yoga & pilates category tests", async ({ page }) => {
+    const storePage = new StorePage(page);
 
-        await storePage.windsurfingClick();
-        await storePage.greeceAdd();
-        await storePage.greeceBasket();
-        await expect(page).toHaveURL(basketURL);
+    await storePage.yogaClick();
+    await storePage.toskaniiAdd();
+    await storePage.toskaniiBasket();
+    await expect(page).toHaveURL(basketURL);
+  });
 
+  test("Sailing category tests", async ({ page }) => {
+    const storePage = new StorePage(page);
 
-    });
+    await storePage.sailingClick();
+    await storePage.sailingCourseAdd();
+    await storePage.sailingCourseBasket();
+    await expect(page).toHaveURL(basketURL);
+  });
 
-    test('Climbing category tests', async ({ page }) => {
-        const storePage = new StorePage(page);
+  test("Adding various items to basket", async ({ page }) => {
+    const storePage = new StorePage(page);
 
-        await storePage.climbingClick();
-        await storePage.islandPeekAdd();
-        await storePage.islandPeekBasket();
-        await expect(page).toHaveURL(basketURL);
-    });
+    const veryfingGrecceAmount = page.locator(
+      'xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input'
+    );
+    const veryfingislandPeekAmount = page.locator(
+      'xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[2]/td[5]/div/input'
+    );
+    const veryfingSailingCourseAmount = page.locator(
+      'xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[3]/td[5]/div/input'
+    );
 
-    test('Yoga & pilates category tests', async ({ page }) => {
-        const storePage = new StorePage(page);
+    await storePage.windsurfingClick();
+    await storePage.greeceAdd();
+    await storePage.navigateTo(shopURL);
+    await storePage.climbingClick();
+    await storePage.islandPeekAdd();
+    await storePage.navigateTo(shopURL);
+    await storePage.sailingClick();
+    await storePage.sailingCourseAdd();
+    await storePage.navigateTo(shopURL);
+    await storePage.navigateTo(basketURL);
+    await expect(veryfingGrecceAmount).toHaveValue("1");
+    await expect(veryfingislandPeekAmount).toHaveValue("1");
+    await expect(veryfingSailingCourseAmount).toHaveValue("1");
+  });
 
-        await storePage.yogaClick();
-        await storePage.toskaniiAdd();
-        await storePage.toskaniiBasket();
-        await expect(page).toHaveURL(basketURL)
-    });
+  test("Manually inserting number of items", async ({ page }) => {
+    const storePage = new StorePage(page);
 
-    test('Sailing category tests', async ({ page }) => {
-        const storePage = new StorePage(page);
+    const veryfingGrecceAmount = page.locator(
+      'xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input'
+    );
 
-        await storePage.sailingClick();
-        await storePage.sailingCourseAdd();
-        await storePage.sailingCourseBasket();
-        await expect(page).toHaveURL(basketURL);
-    });
-
-    test('Adding various items to basket', async ({ page }) => {
-        const storePage = new StorePage(page);
-
-        const veryfingGrecceAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input');
-        const veryfingislandPeekAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[2]/td[5]/div/input');
-        const veryfingSailingCourseAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[3]/td[5]/div/input');
-
-        await storePage.windsurfingClick();
-        await storePage.greeceAdd();
-        await storePage.navigateTo(shopURL);
-        await storePage.climbingClick();
-        await storePage.islandPeekAdd();
-        await storePage.navigateTo(shopURL);
-        await storePage.sailingClick();
-        await storePage.sailingCourseAdd();
-        await storePage.navigateTo(shopURL);
-        await storePage.navigateTo(basketURL);
-        await expect(veryfingGrecceAmount).toHaveValue('1');
-        await expect(veryfingislandPeekAmount).toHaveValue('1');
-        await expect(veryfingSailingCourseAmount).toHaveValue('1')
-
-
-    });
-
-
-})
+    await storePage.windsurfingClick();
+    await storePage.greeceAdd();
+    await storePage.navigateTo(shopURL);
+    await storePage.navigateTo(basketURL);
+    await storePage.productAmountFill("15");
+    await storePage.actualizeBasket();
+    await expect(veryfingGrecceAmount).toHaveValue("15");
+  });
+});
