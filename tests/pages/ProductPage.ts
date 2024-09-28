@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator } from '@playwright/test';
 
 export class ProductPage {
   private page: Page;
@@ -8,51 +8,51 @@ export class ProductPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.productItems = this.page.locator("ul.products li.product");
-    this.searchInput = this.page.getByRole("searchbox", { name: "Szukaj:" });
-    this.sortByDropdown = this.page.getByLabel("Zamówienie").first();
+    this.productItems = this.page.locator('ul.products li.product');
+    this.searchInput = this.page.getByRole('searchbox', { name: 'Szukaj:' });
+    this.sortByDropdown = this.page.getByLabel('Zamówienie').first();
   }
 
   // Metoda do wyboru sortowania według trafności
   async sortByRelevance() {
-    await this.sortByDropdown.selectOption("relevance");
-    await this.page.waitForLoadState("networkidle");
+    await this.sortByDropdown.selectOption('relevance');
+    await this.page.waitForLoadState('networkidle');
     const selectedOption = await this.sortByDropdown.inputValue();
-    return selectedOption === "relevance";
+    return selectedOption === 'relevance';
   }
 
   // Metoda do wyboru sortowania według popularności
   async sortByPopularity() {
-    await this.sortByDropdown.selectOption("popularity");
-    await this.page.waitForLoadState("networkidle");
+    await this.sortByDropdown.selectOption('popularity');
+    await this.page.waitForLoadState('networkidle');
     const selectedOption = await this.sortByDropdown.inputValue();
-    return selectedOption === "popularity";
+    return selectedOption === 'popularity';
   }
 
   // Metoda do wyboru sortowania według średniej oceny
   async sortByRating() {
-    await this.sortByDropdown.selectOption("rating");
-    await this.page.waitForLoadState("networkidle");
+    await this.sortByDropdown.selectOption('rating');
+    await this.page.waitForLoadState('networkidle');
     const selectedOption = await this.sortByDropdown.inputValue();
-    return selectedOption === "rating";
+    return selectedOption === 'rating';
   }
 
   // Metoda do wyboru sortowania od najnowszych
   async sortByDate() {
-    await this.sortByDropdown.selectOption("date");
-    await this.page.waitForLoadState("networkidle");
+    await this.sortByDropdown.selectOption('date');
+    await this.page.waitForLoadState('networkidle');
     const selectedOption = await this.sortByDropdown.inputValue();
-    return selectedOption === "date";
+    return selectedOption === 'date';
   }
 
   // Metoda do ustawienia sortowania według ceny rosnąco
   async sortByPriceAscending() {
     await this.sortByDropdown.click();
-    await this.sortByDropdown.selectOption("price");
-    await this.page.waitForLoadState("networkidle");
+    await this.sortByDropdown.selectOption('price');
+    await this.page.waitForLoadState('networkidle');
 
-    await this.page.waitForSelector("ul.products li.product", {
-      state: "attached",
+    await this.page.waitForSelector('ul.products li.product', {
+      state: 'attached',
       timeout: 10000,
     });
 
@@ -62,11 +62,11 @@ export class ProductPage {
   // Metoda do ustawienia sortowania według ceny malejąco
   async sortByPriceDescending() {
     await this.sortByDropdown.click();
-    await this.sortByDropdown.selectOption("price-desc");
-    await this.page.waitForLoadState("networkidle");
+    await this.sortByDropdown.selectOption('price-desc');
+    await this.page.waitForLoadState('networkidle');
 
-    await this.page.waitForSelector("ul.products li.product", {
-      state: "attached",
+    await this.page.waitForSelector('ul.products li.product', {
+      state: 'attached',
       timeout: 10000,
     });
 
@@ -75,38 +75,30 @@ export class ProductPage {
 
   // Metoda do sprawdzania liczby produktów
   async getProductCount(): Promise<number> {
-    await this.page.waitForLoadState("networkidle");
+    await this.page.waitForLoadState('networkidle');
     return await this.productItems.count();
   }
 
   // Metoda do uzyskiwania informacji o produkcie na podstawie indeksu
   async getProductInfo(index: number) {
     const product = this.productItems.nth(index);
-    const name = await product
-      .locator(".woocommerce-loop-product__title")
-      .innerText();
+    const name = await product.locator('.woocommerce-loop-product__title').innerText();
 
     // Sprawdź, czy produkt jest w promocji poprzez sprawdzenie obecności elementu <span class="onsale">Promocja!</span>
-    const isOnSale = await product.locator("span.onsale").isVisible();
+    const isOnSale = await product.locator('span.onsale').isVisible();
 
-    let price = "";
+    let price = '';
     if (isOnSale) {
       // console.log(`Produkt "${name}" jest na promocji.`); // Potrzebne do debugowania
-      const priceElement = product.locator(
-        ".price ins .woocommerce-Price-amount bdi"
-      );
+      const priceElement = product.locator('.price ins .woocommerce-Price-amount bdi');
       price = await priceElement.first().innerText();
     } else {
       // console.log(`Produkt "${name}" nie jest na promocji.`); // Potrzebne do debugowania
-      const priceElement = product.locator(
-        ".price .woocommerce-Price-amount bdi"
-      );
+      const priceElement = product.locator('.price .woocommerce-Price-amount bdi');
       price = await priceElement.first().innerText();
     }
 
-    const link = await product
-      .locator("a.woocommerce-LoopProduct-link")
-      .getAttribute("href");
+    const link = await product.locator('a.woocommerce-LoopProduct-link').getAttribute('href');
 
     return {
       name: name.trim(),
@@ -118,10 +110,10 @@ export class ProductPage {
   // Metoda do wyszukiwania produktów
   async searchForProduct(query: string): Promise<boolean> {
     await this.searchInput.fill(query);
-    await this.page.keyboard.press("Enter");
+    await this.page.keyboard.press('Enter');
 
-    await this.page.waitForSelector("h1.woocommerce-products-header__title", {
-      state: "visible",
+    await this.page.waitForSelector('h1.woocommerce-products-header__title', {
+      state: 'visible',
     });
     const productCount = await this.getProductCount();
 
@@ -170,9 +162,7 @@ export class ProductPage {
   }
 
   // Metoda do sprawdzania, czy produkty są posortowane po cenie
-  async areProductsSortedByPrice(
-    descending: boolean = false
-  ): Promise<boolean> {
+  async areProductsSortedByPrice(descending: boolean = false): Promise<boolean> {
     const productCount = await this.getProductCount();
 
     if (productCount === 0) {
@@ -183,9 +173,7 @@ export class ProductPage {
     const prices: number[] = [];
     for (let i = 0; i < productCount; i++) {
       const productInfo = await this.getProductInfo(i);
-      const numericPrice = parseFloat(
-        productInfo.price.replace(/[^0-9,.-]+/g, "").replace(",", ".")
-      );
+      const numericPrice = parseFloat(productInfo.price.replace(/[^0-9,.-]+/g, '').replace(',', '.'));
       prices.push(numericPrice);
     }
 
