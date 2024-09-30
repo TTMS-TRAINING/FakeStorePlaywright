@@ -27,7 +27,6 @@ export class StorePage extends BasePage {
   private basketActualization: Locator;
   private deleteItem: Locator;
 
-
   private mainPage: Locator;
   private insideBasket: Locator;
 
@@ -72,7 +71,7 @@ export class StorePage extends BasePage {
     });
 
     //Basket Locators
-    this.deleteItem = page.getByLabel('Usuń Grecja - Limnos z koszyka');
+    this.deleteItem = page.locator(".remove");
     this.productAmount = page.getByLabel("Ilość produktu");
     this.basketActualization = page.getByRole("button", {
       name: "Zaktualizuj koszyk",
@@ -129,7 +128,6 @@ export class StorePage extends BasePage {
     await this.sailingCourse.click();
   }
   async sailingCourseBasket() {
-
     await this.insideBasket.click();
   }
 
@@ -155,9 +153,7 @@ export class StorePage extends BasePage {
     await this.insideBasket.click();
   }
 
-  async deletingItem(){
+  async deletingItem() {
     await this.deleteItem.click();
   }
-
-
 }

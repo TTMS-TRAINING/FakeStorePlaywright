@@ -68,7 +68,7 @@ test.describe("Store Page Tests", () => {
     await storePage.navigateTo(shopURL);
     await storePage.sailingClick();
     await storePage.sailingCourseAdd();
-    await storePage.navigateTo(shopURL);
+    await page.reload();
     await storePage.navigateTo(basketURL);
     await expect(veryfingGrecceAmount).toHaveValue("1");
     await expect(veryfingislandPeekAmount).toHaveValue("1");
@@ -84,7 +84,7 @@ test.describe("Store Page Tests", () => {
 
     await storePage.windsurfingClick();
     await storePage.greeceAdd();
-    await storePage.navigateTo(shopURL);
+    await page.reload();
     await storePage.navigateTo(basketURL);
     await storePage.productAmountFill("15");
     await storePage.actualizeBasket();
@@ -94,13 +94,15 @@ test.describe("Store Page Tests", () => {
   test("Deleting singular item from basket", async ({ page }) => {
     const storePage = new StorePage(page);
 
-    const itemDeletedMessage = page.locator('.woocommerce-message').first();
+    const itemDeletedMessage = page.locator(".woocommerce-message").first();
 
     await storePage.windsurfingClick();
     await storePage.greeceAdd();
-    await storePage.navigateTo(shopURL);
+    await page.reload();
     await storePage.navigateTo(basketURL);
     await storePage.deletingItem();
-    await expect(itemDeletedMessage).toHaveText('Usunięto: „Grecja - Limnos“. Cofnij?');
+    await expect(itemDeletedMessage).toHaveText(
+      "Usunięto: „Grecja - Limnos“. Cofnij?"
+    );
   });
 });
