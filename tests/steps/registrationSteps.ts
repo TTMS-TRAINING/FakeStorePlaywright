@@ -1,28 +1,15 @@
-import { Given, When, Then, Before, After } from "@cucumber/cucumber";
+import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "playwright/test";
-import { AccountPage } from "../pages/AccountPage";
+import { getAccountPage, getPage } from "../hooks/testHook";
 import { AccountTestData } from "../testData/AccountTestData";
-import { Page, Browser, chromium } from "playwright";
 
-let page: Page;
-let accountPage: AccountPage;
-let browser: Browser;
-
-Before(async function () {
-  browser = await chromium.launch({ headless: false }); // Uruchom przeglądarkę przed każdym testem
-  page = await browser.newPage();
-  accountPage = new AccountPage(page);
-});
-
-After(async function () {
-  await browser.close(); // Zamknij przeglądarkę po każdym teście
-});
-
-Given("Go to register page", async function () {
+Given("Go to register page", async () => {
+  const accountPage = getAccountPage();
   await accountPage.navigateTo("https://fakestore.testelka.pl/moje-konto/");
 });
 
-When("Register user using {string}", async function (emailType: string) {
+When("Register user using {string}", async (emailType: string) => {
+  const accountPage = getAccountPage();
   let accountData;
 
   switch (emailType) {
@@ -44,12 +31,11 @@ When("Register user using {string}", async function (emailType: string) {
   await accountPage.register(accountData);
 });
 
-Then("Expected message should be displayed {string} {string}",
-  async function (expectedMessage: string, emailType: string) {
-    await expect(page.getByText(`${expectedMessage}`)).toBeVisible();
-    if (emailType == "NewEmail") {
-      await page.on('dialog', dialog => dialog.accept());
-      await page.locator('.delete-me').click();
-    }
+Then("Expected message should be displayed {string} {string}", async (expectedMessage: string, emailType: string) => {
+  const page = getPage();
+  await expect(page.getByText(`${expectedMessage}`)).toBeVisible();
+  if (emailType === "NewEmail") {
+    page.on('dialog', dialog => dialog.accept());
+    await page.locator('.delete-me').click();
   }
-);
+});

@@ -1,28 +1,15 @@
-import { Given, When, Then, Before, After } from "@cucumber/cucumber";
+import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "playwright/test";
-import { AccountPage } from "../pages/AccountPage";
+import { getAccountPage, getPage } from "../hooks/testHook";
 import { AccountTestData } from "../testData/AccountTestData";
-import { Page, Browser, chromium } from "playwright";
 
-let page: Page;
-let accountPage: AccountPage;
-let browser: Browser;
-
-Before(async function () {
-  browser = await chromium.launch({ headless: false });
-  page = await browser.newPage();
-  accountPage = new AccountPage(page);
-});
-
-After(async function () {
-  await browser.close(); 
-});
-
-Given("Go to login page", async function () {
+Given("Go to login page", async () => {
+  const accountPage = getAccountPage();
   await accountPage.navigateTo("https://fakestore.testelka.pl/moje-konto/");
 });
 
-When("Login with {string}", async function (accountType: string) {
+When("Login with {string}", async (accountType: string) => {
+  const accountPage = getAccountPage();
   let accountData;
 
   switch (accountType) {
@@ -38,8 +25,7 @@ When("Login with {string}", async function (accountType: string) {
   await accountPage.showUserPassword(accountData);
 });
 
-Then( "I see password: {string}",
-  async function (passwordValue: string) {
-    await expect(page.locator('#password')).toHaveValue(`${passwordValue}`);
-  }
-);
+Then("I see password: {string}", async (passwordValue: string) => {
+  const page = getPage();
+  await expect(page.locator('#password')).toHaveValue(`${passwordValue}`);
+});
