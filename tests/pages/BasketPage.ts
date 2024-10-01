@@ -28,7 +28,10 @@ export class BasketPage extends BasePage {
     this.restoreItem = this.page.locator('.restore-item');
   }
 
-  async clickProceedToCheckout() {
-    await this.checkoutButton.click();
+  async clickProceedToCheckout(): Promise<void> {
+    await Promise.all([
+      this.checkoutButton.click(), // Wykonuje kliknięcie
+      this.page.waitForNavigation({ waitUntil: 'load' }), // Fixed 'networkidle0' to 'networkidle'
+    ]);
   }
 }

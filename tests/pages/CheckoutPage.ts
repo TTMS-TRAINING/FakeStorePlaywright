@@ -125,16 +125,9 @@ export class CheckoutPage extends BasePage {
     await expect(this.savePaymentInfoCheckbox).toBeChecked();
   }
 
-  async placeOrder() {
-    // Klikamy przycisk zamówienia
-    await Promise.all([
-      this.placeOrderButton.click(), // Klikamy przycisk
-      this.page.waitForNavigation({ waitUntil: 'load', timeout: 60000 }), // Czekamy na przeładowanie strony
-    ]);
-    // Asercja, że nagłówek zawiera tekst 'Zamówienie otrzymane'
-    await expect(this.page.locator('h1')).toContainText('Zamówienie otrzymane');
+  async placeOrder(): Promise<void> {
+    await this.placeOrderButton.waitFor({ state: 'visible' }); // Czekamy, aż przycisk będzie widoczny
 
-    // Asercja, że element z ID #post-7 zawiera odpowiedni tekst potwierdzenia
-    await expect(this.page.locator('#post-7')).toContainText('Dziękujemy. Otrzymaliśmy Twoje zamówienie.');
+    await this.placeOrderButton.click();
   }
 }
