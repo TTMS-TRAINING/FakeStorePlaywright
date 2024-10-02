@@ -11,4 +11,6 @@ export class AccountTestData {
     public static ExistingEmail:AccountData = new AccountData('','','kamilakrystyna@gmail.com', 'AccountTest12345!@',false);
     public static NotCorrectEmail:AccountData = new AccountData('','','test.test@test','Test1234567!@#',false)
     public static WeakPassword:AccountData = new AccountData('','','weakpasstest@email.com','Test1234',false)
+    public static RandomRegisterData: AccountData = new AccountData("","",
+      "kamila" + Math.floor(Math.random() * 100) + "krystyna" + Math.floor(Math.random() * 100) + "@gmail.com", "AccountTest1234!@", false);
 }

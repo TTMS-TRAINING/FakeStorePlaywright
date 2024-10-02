@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { AccountData } from '../models/AccountData';
-import { AccountTestData } from '../testData/AccountTestData';
+import { MainPage } from '../pages/MainPage';
 
 export class AccountPage extends BasePage {
     private username!: Locator;
@@ -13,6 +13,7 @@ export class AccountPage extends BasePage {
     private rememberMe!: Locator;
     private lostPassword!: Locator;
     private showPassword!: Locator;
+    private delete!: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -28,6 +29,7 @@ export class AccountPage extends BasePage {
         this.rememberMe = this.page.locator('#rememberme');
         this.lostPassword = this.page.getByRole('link', { name: 'Nie pamiętasz hasła?' });
         this.showPassword = this.page.locator('.show-password-input').first();
+        this.delete = this.page.locator('.delete-me');
     }
     async login(account: AccountData) {
         await this.username.fill(account.username);
@@ -46,5 +48,9 @@ export class AccountPage extends BasePage {
         await this.email.fill(account.email);
         await this.registerPassword.fill(account.registerPassword);
         await this.page.keyboard.press("Enter");
+    }
+
+    async deleteAccount(){        
+        await this.delete.click();
     }
 };
