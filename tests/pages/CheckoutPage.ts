@@ -88,46 +88,30 @@ export class CheckoutPage extends BasePage {
     }
   }
   async selectCountry(countryName: string) {
-    //metoda do rozbudowania selectCountry, potrzebna gdzie będzie testowane więcej ilości country niż Polska które wygenerują dodatkowe pola
-    // Wybieramy element Select2
     const countryDropdown = this.page.locator('#select2-billing_country-container');
-
-    // Klikamy, aby otworzyć listę opcji
     await countryDropdown.click();
-
-    // Szukamy opcji o nazwie kraju w wynikach Select2
     const option = this.page.locator(`li[id*="select2-billing_country-result-"]:has-text("${countryName}")`);
-
-    // Czekamy, aż opcja stanie się widoczna, i wybieramy ją
     await option.click();
   }
 
-  // Metoda do wypełniania danych karty płatniczej Stripe
   async fillStripeCardDetails(cardNumber: string, cardExpiry: string, cardCVC: string) {
-    // Upewniamy się, że metoda płatności Stripe jest wybrana
     await this.stripePaymentMethod.check();
-
-    // Wypełniamy pole numeru karty
     await this.stripeCardNumberField.fill(cardNumber);
-
-    // Wypełniamy pole daty wygaśnięcia
     await this.stripeCardExpiryField.fill(cardExpiry);
-
-    // Wypełniamy pole CVC
     await this.stripeCardCVCField.fill(cardCVC);
   }
 
   async checkSavePaymentInfo() {
-    // Zaznacz checkbox
     await this.savePaymentInfoCheckbox.check();
-
-    // Asercja, że checkbox został zaznaczony
     await expect(this.savePaymentInfoCheckbox).toBeChecked();
   }
 
   async placeOrder(): Promise<void> {
     await this.placeOrderButton.waitFor({ state: 'visible' }); // Czekamy, aż przycisk będzie widoczny
-
     await this.placeOrderButton.click();
+  }
+  async AssertOrder(): Promise<void> {
+    await this.page.waitForSelector('h1:has-text("Zamówienie otrzymane")');
+    await expect(this.page.locator('h1')).toContainText('Zamówienie otrzymane');
   }
 }

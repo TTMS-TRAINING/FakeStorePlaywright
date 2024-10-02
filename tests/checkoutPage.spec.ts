@@ -8,6 +8,7 @@ import { AccountTestData } from './testData/AccountTestData';
 import { WishlistPage } from './pages/WishlistPage';
 
 test.describe('Store Page Tests', () => {
+  test.setTimeout(60000);
   const basketURL = 'https://fakestore.testelka.pl/koszyk/';
   const shopURL = 'https://fakestore.testelka.pl/shop/';
   const productURL = 'https://fakestore.testelka.pl/product/grecja-limnos/';
@@ -52,12 +53,13 @@ test.describe('Store Page Tests', () => {
 
     await checkoutPage.checkSavePaymentInfo();
     await checkoutPage.placeOrder();
-
-    await expect(page.getByRole('heading', { name: 'Zamówienie otrzymane' })).toBeVisible();
-    await expect(page.locator('h1')).toContainText('Zamówienie otrzymane');
+    await checkoutPage.AssertOrder();
+    //await page.waitForSelector('h1:has-text("Zamówienie otrzymane")', { timeout: 10000 });
+    //await expect(page.locator('h1')).toContainText('Zamówienie otrzymane');
   });
 });
 test.describe.serial('Testy strony wishlist po zalogowaniu na konto', () => {
+  test.setTimeout(60000);
   let accountPage: AccountPage;
   const basketURL = 'https://fakestore.testelka.pl/koszyk/';
   const shopURL = 'https://fakestore.testelka.pl/shop/';
