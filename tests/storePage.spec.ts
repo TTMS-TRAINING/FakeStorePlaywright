@@ -55,17 +55,25 @@ test.describe('Store Page Tests', () => {
     const veryfingislandPeekAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[2]/td[5]/div/input');
     const veryfingSailingCourseAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[3]/td[5]/div/input');
 
+    const shopLocator = page.locator(`//*[@id="menu-item-198"]`);
+
     await storePage.windsurfingClick();
     await storePage.greeceAdd();
     await page.waitForTimeout(500);
-    await storePage.navigateTo(shopURL);
+    await shopLocator.click();
+    //await storePage.navigateTo(shopURL);
     await storePage.climbingClick();
     await storePage.islandPeekAdd();
-    await storePage.navigateTo(shopURL);
+    await page.waitForTimeout(500);
+    await shopLocator.click();
+    //await storePage.navigateTo(shopURL);
     await storePage.sailingClick();
     await storePage.sailingCourseAdd();
-    await storePage.navigateTo(shopURL);
+    await page.waitForTimeout(500);
+    await shopLocator.click();
+    //await storePage.navigateTo(shopURL);
     await storePage.navigateTo(basketURL);
+    await page.waitForTimeout(500);
     await expect(veryfingGrecceAmount).toHaveValue('1');
     await expect(veryfingislandPeekAmount).toHaveValue('1');
     await expect(veryfingSailingCourseAmount).toHaveValue('1');
@@ -77,12 +85,12 @@ test.describe('Store Page Tests', () => {
     const veryfingGrecceAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input');
     const shopLocator = page.locator(`//*[@id="menu-item-198"]`);
 
-
     await storePage.windsurfingClick();
     await storePage.greeceAdd();
     await page.waitForTimeout(500);
     await shopLocator.click();
     //    await storePage.navigateTo(shopURL);
+    await page.waitForTimeout(500);
     await storePage.navigateTo(basketURL);
     await storePage.productAmountFill('15');
     await storePage.actualizeBasket();
@@ -99,7 +107,7 @@ test.describe('Store Page Tests', () => {
     await storePage.greeceAdd();
     await page.waitForTimeout(500);
     await shopLocator.click();
-//    await storePage.navigateTo(shopURL);
+    //    await storePage.navigateTo(shopURL);
     await storePage.navigateTo(basketURL);
     await storePage.deletingItem();
     await expect(itemDeletedMessage).toHaveText('Usunięto: „Grecja - Limnos“. Cofnij?');
