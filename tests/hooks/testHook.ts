@@ -10,7 +10,10 @@ let shopPage: ShopPage;
 
 export const getBrowser = () => browser;
 export const getPage = () => page;
-export const getAccountPage = () => accountPage;
+//export const getAccountPage = () => accountPage;
+export const getAccountPage = (page: Page) => {
+  return new AccountPage(page);
+};
 export const getShopPage = (page: Page) => {
   return new ShopPage(page);
 };
