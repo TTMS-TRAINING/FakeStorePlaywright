@@ -24,6 +24,7 @@ export class CheckoutPage extends BasePage {
   private savePaymentInfoCheckbox!: Locator;
 
   private placeOrderButton!: Locator;
+  private errorList!: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -56,6 +57,8 @@ export class CheckoutPage extends BasePage {
     this.savePaymentInfoCheckbox = this.page.locator('#terms');
 
     this.placeOrderButton = this.page.locator('#place_order');
+
+    this.errorList = this.page.locator('.woocommerce-error');
   }
 
   // Przykładowe metody do wypełniania formularza
@@ -113,5 +116,40 @@ export class CheckoutPage extends BasePage {
   async AssertOrder(): Promise<void> {
     await this.page.waitForSelector('h1:has-text("Zamówienie otrzymane")');
     await expect(this.page.locator('h1')).toContainText('Zamówienie otrzymane');
+  }
+  async assertFirstNameRequired() {
+    await this.firstNameField.fill('');
+    await this.placeOrderButton.click();
+    const errorMessage = this.errorList.locator('li[data-id="billing_first_name"]');
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(/Imię płatnika.*jest wymaganym polem/);
+  }
+  async assertLastNameRequired() {
+    await this.lastNameField.fill('');
+    await this.placeOrderButton.click();
+    const errorMessage = this.errorList.locator('li[data-id="billing_last_name"]');
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(/Nazwisko płatnika.*jest wymaganym polem/);
+  }
+  async assertAdressRequired() {
+    await this.addressField.fill('');
+    await this.placeOrderButton.click();
+    const errorMessage = this.errorList.locator('li[data-id="billing_address_1"]');
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(/Ulica płatnika.*jest wymaganym polem/);
+  }
+  async assertPostalCodeFormat() {
+    await this.postcodeField.fill('asdf');
+    await this.placeOrderButton.click();
+    const errorMessage = this.errorList.locator('li[data-id="billing_postcode"]');
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(/Kod pocztowy płatnika.*nie jest prawidłowym kodem pocztowym./);
+  }
+  async assertCityFieldRequired() {
+    await this.cityField.fill('');
+    await this.placeOrderButton.click();
+    const errorMessage = this.errorList.locator('li[data-id="billing_city"]');
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(/Miasto płatnika.*jest wymaganym polem/);
   }
 }
