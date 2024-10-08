@@ -8,6 +8,9 @@ export class BasePage {
   }
 
   async navigateTo(url: string) {
-    await this.page.goto(url);
+    await this.page.goto(url, {
+      waitUntil: 'networkidle', // Czeka na moment, w którym brak aktywności sieciowej
+      timeout: 70000            // Timeout na 70 sekund 
+    });
   }
 }
