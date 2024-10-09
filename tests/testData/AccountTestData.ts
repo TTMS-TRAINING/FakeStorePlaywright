@@ -12,6 +12,6 @@ export class AccountTestData {
     public static ExistingEmail:AccountData = new AccountData('','','kamilakrystyna@gmail.com', 'AccountTest12345!@',false);
     public static NotCorrectEmail:AccountData = new AccountData('','','test.test@test','Test1234567!@#',false)
     public static WeakPassword:AccountData = new AccountData('','','weakpasstest@email.com','Test1234',false)
-
+    public static TestUserWishlist: AccountData = new AccountData('pawel.czaplejewicz@gmail.com', '#Q1w2e3r4t5!', '', '', true);
     public static RandomRegisterData: AccountData = new AccountData("","", faker.internet.exampleEmail(), faker.internet.password(), false);
 }
