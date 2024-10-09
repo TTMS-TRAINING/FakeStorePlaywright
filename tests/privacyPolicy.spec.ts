@@ -13,7 +13,7 @@ test.describe('Check privacy policy page', () => {
     
     test('Click and Check', async ({ page }) => {
 
-        await accountPage.register(AccountTestData.CorrectEmailLogin);
+        await accountPage.login(AccountTestData.CorrectEmailLogin);
         await accountPage.privacyPolicy.click();
 
         await expect(page).toHaveURL('https://fakestore.testelka.pl/polityka-prywatnosci/');
