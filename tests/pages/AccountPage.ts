@@ -13,6 +13,7 @@ export class AccountPage extends BasePage {
     private rememberMe!: Locator;
     private lostPassword!: Locator;
     private showPassword!: Locator;
+    public privacyPolicy!: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -28,6 +29,7 @@ export class AccountPage extends BasePage {
         this.rememberMe = this.page.locator('#rememberme');
         this.lostPassword = this.page.getByRole('link', { name: 'Nie pamiętasz hasła?' });
         this.showPassword = this.page.locator('.show-password-input').first();
+        this.privacyPolicy = this.page.locator('.privacy-policy-link');
     }
     async login(account: AccountData) {
         await this.username.fill(account.username);
