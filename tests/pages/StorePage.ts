@@ -25,6 +25,8 @@ export class StorePage extends BasePage {
   //Basket
   private productAmount: Locator;
   private basketActualization: Locator;
+  private deleteItem: Locator;
+
 
   private mainPage: Locator;
   private insideBasket: Locator;
@@ -70,15 +72,11 @@ export class StorePage extends BasePage {
     });
 
     //Basket Locators
-
+    this.deleteItem = page.getByLabel('Usuń Grecja - Limnos z koszyka');
     this.productAmount = page.getByLabel("Ilość produktu");
     this.basketActualization = page.getByRole("button", {
       name: "Zaktualizuj koszyk",
     });
-
-    //this.greeceAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[1]/td[5]/div/input');
-    //this.islandPeekAmout = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[2]/td[5]/div/input');
-    //this.sailingCourseAmount = page.locator('xpath=//*[@id="post-6"]/div/div/form/table/tbody/tr[3]/td[5]/div/input');
 
     this.mainPage = page.getByRole("link", { name: "FakeStore" });
     this.insideBasket = page
@@ -131,7 +129,7 @@ export class StorePage extends BasePage {
     await this.sailingCourse.click();
   }
   async sailingCourseBasket() {
-    //await this.basketSailingCourse.hover();
+
     await this.insideBasket.click();
   }
 
@@ -156,4 +154,10 @@ export class StorePage extends BasePage {
   async seeInsideBasket() {
     await this.insideBasket.click();
   }
+
+  async deletingItem(){
+    await this.deleteItem.click();
+  }
+
+
 }

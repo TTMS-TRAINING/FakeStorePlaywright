@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { AccountData } from '../models/AccountData';
-import { MainPage } from '../pages/MainPage';
+import { AccountTestData } from '../testData/AccountTestData';
 
 export class AccountPage extends BasePage {
     private username!: Locator;

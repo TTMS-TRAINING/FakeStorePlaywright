@@ -90,4 +90,17 @@ test.describe("Store Page Tests", () => {
     await storePage.actualizeBasket();
     await expect(veryfingGrecceAmount).toHaveValue("15");
   });
+
+  test("Deleting singular item from basket", async ({ page }) => {
+    const storePage = new StorePage(page);
+
+    const itemDeletedMessage = page.locator('.woocommerce-message').first();
+
+    await storePage.windsurfingClick();
+    await storePage.greeceAdd();
+    await storePage.navigateTo(shopURL);
+    await storePage.navigateTo(basketURL);
+    await storePage.deletingItem();
+    await expect(itemDeletedMessage).toHaveText('Usunięto: „Grecja - Limnos“. Cofnij?');
+  });
 });
