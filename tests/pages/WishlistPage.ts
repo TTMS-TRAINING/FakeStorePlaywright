@@ -147,6 +147,7 @@ export class WishlistPage extends MainPage {
       const addToWishlistLink = this.page.getByRole('link', {
         name: 'Dodaj do listy życzeń',
       });
+      this.page.waitForTimeout(500);
 
       if (await addToWishlistLink.isVisible()) {
         await addToWishlistLink.click();
